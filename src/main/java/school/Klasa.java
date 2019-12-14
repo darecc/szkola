@@ -1,7 +1,10 @@
 package school;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 public class Klasa {
     private static Klasa instancja = null;
@@ -41,6 +44,18 @@ public class Klasa {
         else
             throw  new ClassException("nie ma przedmiotu:" + subjectName);
     }
+    public void addNote(Pupil pupil, Note note) throws ClassException {
+        boolean jest = false;
+        for(Subject subject : subjects)
+            if (subject.getSubjectName().compareTo(note.getSubjectName()) == 0) {
+                jest = true;
+                break;
+            }
+        if (jest)
+            pupil.addNote(note);
+        else
+            throw  new ClassException("nie ma przedmiotu:" + note.getSubjectName());
+    }
     public void addSubject(String subjectName) {
         subjects.add(new Subject(subjectName));
     }
@@ -65,5 +80,74 @@ public class Klasa {
     public void showSubjects() {
         for(Subject subject : subjects)
             System.out.format("%12s nauczyciel: %-20s %n", subject.getSubjectName(), subject.getTeacher().toString());
+    }
+    public double calculateAverageNote(Pupil pupil) {
+        return pupil.countAverageNote();
+    }
+    public double calculateAverageNote(String subjectName) throws  ClassException {
+        double sum = 0;
+        double count = 0;
+        for(Pupil pupil : pupils)
+            for(Note note : pupil.getNoteList())
+                if (note.getSubjectName().compareTo(subjectName) == 0) {
+                    sum += note.getNote();
+                    count++;
+                }
+        if (count == 0)
+            throw new ClassException("nie ma ocen z: " + subjectName);
+        return sum/count;
+    }
+    /*
+    public double calculateAverageNote(String subjectName, Type typ ) {
+        if (typ == Type.stream) {
+            try {
+                double aver =
+                        pupils
+                                .stream()
+                                .mapToDouble(p -> {
+                                    OptionalDouble res = OptionalDouble.of(0);
+                                    try {
+                                        res =  OptionalDouble.of(p.countAverageNote(subjectName));
+                                    }
+                                    catch(Exception ex) {
+                                        ex.printStackTrace();
+                                    }
+                                    return res;
+                                })
+                                .average();
+                  .
+            }
+            catch(Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+    */
+    public HashSet<String> getSubjectSet() {
+        HashSet<String> set = new HashSet<>();
+        for(Subject sub : subjects)
+            set.add(sub.getSubjectName());
+        return set;
+    }
+    public void showAbsentNotes(Pupil pupil) {
+        HashSet<String> przedmiotyZOcenami = pupil.dajZbiorPrzedmiotowZKtorychMamOcene();
+        HashSet<String> zbiorPrzedmiotow = this.getSubjectSet();
+        zbiorPrzedmiotow.removeAll(przedmiotyZOcenami);
+        if (zbiorPrzedmiotow.size() > 0) {
+            System.out.println("=== PRZEDMIOTY Z KTÓRYCH UCZEŃ " + pupil.toString() + " NIE MA OCEN ===");
+            for(String przedmiot : zbiorPrzedmiotow)
+            System.out.println(przedmiot);
+        }
+    }
+    public void showBestPupils(String subjectName) {
+        List<Pupil> najlepsi =
+                pupils
+                .stream()
+                .sorted((p1,p2) -> (int)(p2.countAverageNote(subjectName) - p1.countAverageNote(subjectName)))
+                .limit(3)
+                .collect(Collectors.toList());
+                for(Pupil pupil : najlepsi)
+                    System.out.format("%20s średnia: %.2f %n", pupil.toString(), pupil.countAverageNote(subjectName));
+
     }
 }

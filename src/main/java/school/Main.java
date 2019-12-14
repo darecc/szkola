@@ -18,14 +18,14 @@ public class Main {
         Pupil p3 = new Pupil("Leon", "Czyżyk", LocalDate.of(2006, 7, 12));
         Pupil p4 = new Pupil("Olga", "Praska", LocalDate.of(2005, 8, 2));
         Pupil p5 = new Pupil("Sylwia", "Piątek", LocalDate.of(2005, 1, 22));
-        List<Pupil> pupils = (List<Pupil>) Arrays.asList(new Pupil[] {p1,p2,p3,p4,p5});
+        List<Pupil> pupils = (List<Pupil>) Arrays.asList(new Pupil[] {p0, p1,p2,p3,p4,p5});
 
         klasa.addPupil(p1);
         klasa.addPupil(p2);
         klasa.addPupil(p3);
         klasa.addPupil(p4);
         klasa.addPupil(p5);
-
+        klasa.addPupil(p0);
         Teacher t1 = new Teacher("Zenon", "Żyto");
         Teacher t2 = new Teacher("Dorota", "Nowakowska");
         Teacher t3 = new Teacher("Cecylia", "Ciesielska");
@@ -49,7 +49,7 @@ public class Main {
         t4.addSubject("religia");
         t4.addSubject("język angielski");
 
-         klasa.addTeacher(t1);
+        klasa.addTeacher(t1);
         klasa.addTeacher(t2);
         klasa.addTeacher(t3);
         klasa.addTeacher(t4);
@@ -61,40 +61,46 @@ public class Main {
         klasa.addSubject("fizyka");
         klasa.addSubject("chemia");
         klasa.addSubject("język francuski", t4);
-        p1.addNote(new Note("matematyka", 4.5));
-        p1.addNote(new Note("fizyka", 4.0));
-        p1.addNote(new Note("chemia", 3.5));
-        p1.addNote(new Note("geografia", 5.0));
-        p1.addNote(new Note("historia", 3.0));
-        p1.addNote(new Note("język polski", 2.0));
-        p1.addNote(new Note("język angielski", 2.0));
-        p2.addNote(new Note("matematyka", 3.5));
-        p2.addNote(new Note("fizyka", 3.0));
-        p2.addNote(new Note("chemia", 2.5));
-        p2.addNote(new Note("geografia", 3.0));
-        p2.addNote(new Note("historia", 3.5));
-        p2.addNote(new Note("język polski", 3.0));
-        p2.addNote(new Note("język angielski", 4.0));
-        p3.addNote(new Note("matematyka", 3.5));
-        p3.addNote(new Note("fizyka", 3.0));
-        p3.addNote(new Note("chemia", 3.5));
-        p3.addNote(new Note("geografia", 2.0));
-        p3.addNote(new Note("historia", 2.0));
-        p3.addNote(new Note("język polski", 3.5));
-        p4.addNote(new Note("matematyka", 3.5));
-        p4.addNote(new Note("fizyka", 4.5));
-        p4.addNote(new Note("chemia", 4.5));
-        p4.addNote(new Note("geografia", 4.0));
-        p4.addNote(new Note("historia", 4.0));
-        p4.addNote(new Note("język polski", 3.5));
-        p4.addNote(new Note("język angielski", 4.0));
-        p5.addNote(new Note("matematyka", 4.5));
-        p5.addNote(new Note("fizyka", 5.0));
-        p5.addNote(new Note("chemia", 4.5));
-        p5.addNote(new Note("geografia", 4.5));
-        p5.addNote(new Note("historia", 5.0));
-        p5.addNote(new Note("język polski", 3.5));
-        p5.addNote(new Note("język angielski", 4.0));
+        try {
+            klasa.addNote(p1, new Note("matematyka", 4.5));
+            klasa.addNote(p1, new Note("fizyka", 4.0));
+            klasa.addNote(p1, new Note("chemia", 3.5));
+            klasa.addNote(p1, new Note("geografia", 5.0));
+            klasa.addNote(p1, new Note("historia", 3.0));
+            klasa.addNote(p1, new Note("język polski", 2.0));
+            klasa.addNote(p1, new Note("język angielski", 2.0));
+            //klasa.addNote(p2, new Note("psychologia", 3.5));
+            klasa.addNote(p2, new Note("fizyka", 3.0));
+            klasa.addNote(p2, new Note("chemia", 2.5));
+            klasa.addNote(p2, new Note("geografia", 3.0));
+            klasa.addNote(p2, new Note("historia", 3.5));
+            klasa.addNote(p2, new Note("język polski", 3.0));
+            klasa.addNote(p2, new Note("język angielski", 4.0));
+            klasa.addNote(p3, new Note("matematyka", 3.5));
+            klasa.addNote(p3, new Note("fizyka", 3.0));
+            klasa.addNote(p3, new Note("chemia", 3.5));
+            klasa.addNote(p3, new Note("geografia", 2.0));
+            klasa.addNote(p3, new Note("historia", 2.0));
+            klasa.addNote(p3, new Note("język polski", 3.5));
+            klasa.addNote(p4, new Note("matematyka", 3.5));
+            klasa.addNote(p4, new Note("fizyka", 4.5));
+            klasa.addNote(p4, new Note("chemia", 4.5));
+            klasa.addNote(p4, new Note("geografia", 4.0));
+            klasa.addNote(p4, new Note("historia", 4.0));
+            klasa.addNote(p4, new Note("język polski", 3.5));
+            klasa.addNote(p4, new Note("język angielski", 4.0));
+            klasa.addNote(p5, new Note("matematyka", 4.5));
+            klasa.addNote(p5, new Note("fizyka", 5.0));
+            klasa.addNote(p5, new Note("chemia", 4.5));
+            klasa.addNote(p5, new Note("geografia", 4.5));
+            klasa.addNote(p5, new Note("historia", 5.0));
+            klasa.addNote(p5, new Note("język polski", 3.5));
+            klasa.addNote(p5, new Note("język angielski", 4.0));
+            klasa.addNote(p0, new Note("matematyka", 4.0));
+        }
+        catch(ClassException ce) {
+            System.out.println(ce.getMessage());
+        }
         //endregion
 
         try {
@@ -104,5 +110,11 @@ public class Main {
         catch(ClassException ce) {
             System.out.println(ce.getMessage());
         }
+        klasa.showAbsentNotes(p1);
+        klasa.showAbsentNotes(p0);
+        for(Pupil pupil : pupils)
+            System.out.println(pupil.toString() + " " + pupil.countAverageNote("matematyka"));
+        klasa.calculateAverageNote(p1);
+        klasa.showBestPupils("matematyka");
     }
 }
