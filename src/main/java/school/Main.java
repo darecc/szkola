@@ -2,6 +2,7 @@ package school;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class Main {
@@ -82,6 +83,7 @@ public class Main {
             klasa.addNote(p3, new Note("geografia", 2.0));
             klasa.addNote(p3, new Note("historia", 2.0));
             klasa.addNote(p3, new Note("język polski", 3.5));
+            klasa.addNote(p3, new Note("język francuski", 3.5));
             klasa.addNote(p4, new Note("matematyka", 3.5));
             klasa.addNote(p4, new Note("fizyka", 4.5));
             klasa.addNote(p4, new Note("chemia", 4.5));
@@ -112,9 +114,16 @@ public class Main {
         }
         klasa.showAbsentNotes(p1);
         klasa.showAbsentNotes(p0);
+        System.out.println("Oceny z matematyki:");
         for(Pupil pupil : pupils)
-            System.out.println(pupil.toString() + " " + pupil.countAverageNote("matematyka"));
+            System.out.println(pupil.toString() + " " + pupil.countAverageNote("historia"));
         klasa.calculateAverageNote(p1);
-        klasa.showBestPupils("matematyka");
+        //klasa.showBestPupils("matematyka");
+        HashSet<String> listaPrzedmiotów = klasa.getSubjectSet();
+        for(String przedmiot : listaPrzedmiotów)
+            klasa.showBestPupils(przedmiot);
+        System.out.println("best 2");
+        for(String przedmiot : listaPrzedmiotów)
+            klasa.showBestPupils2(przedmiot);
     }
 }

@@ -1,5 +1,8 @@
 package school;
 
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,5 +59,21 @@ public class Pupil extends Person {
         for(Note note : noteList)
             set.add(note.getSubjectName());
         return set;
+    }
+    public boolean hasAnyNote(String subjectName) {
+        for(Note note : noteList)
+            if (note.getSubjectName().compareTo(subjectName) == 0)
+                return true;
+        return false;
+    }
+    public Pair<Pupil, Double> getPair(String subjectName) {
+        Pair para = new Pair(this, this.countAverageNote(subjectName));
+        return para;
+    }
+    public double getFirstNoteFromSubject(String subjectName) {
+        for(Note note : noteList)
+            if (note.getSubjectName().compareTo(subjectName) == 0)
+                return note.getNote();
+        return 0;
     }
 }

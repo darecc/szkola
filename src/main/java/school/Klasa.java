@@ -143,11 +143,26 @@ public class Klasa {
         List<Pupil> najlepsi =
                 pupils
                 .stream()
-                .sorted((p1,p2) -> (int)(p2.countAverageNote(subjectName) - p1.countAverageNote(subjectName)))
+                .filter(p -> p.hasAnyNote(subjectName))
+                .sorted((p1,p2) -> (int)((p2.countAverageNote(subjectName) - p1.countAverageNote(subjectName))*100))
                 .limit(3)
                 .collect(Collectors.toList());
+                System.out.println("=== NAJLEPSI Z :" + subjectName + " ===");
                 for(Pupil pupil : najlepsi)
                     System.out.format("%20s średnia: %.2f %n", pupil.toString(), pupil.countAverageNote(subjectName));
+
+    }
+    public void showBestPupils2(String subjectName) {
+        List<Pupil> najlepsi =
+                pupils
+                        .stream()
+                        .filter(p -> p.hasAnyNote(subjectName))
+                        .sorted((p1,p2) -> (int)((p2.getFirstNoteFromSubject(subjectName) - p1.getFirstNoteFromSubject(subjectName))*100))
+                        .limit(3)
+                        .collect(Collectors.toList());
+        System.out.println("=== NAJLEPSI Z :" + subjectName + " ===");
+        for(Pupil pupil : najlepsi)
+            System.out.format("%20s średnia: %.2f %n", pupil.toString(), pupil.countAverageNote(subjectName));
 
     }
 }
